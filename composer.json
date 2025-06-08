@@ -1,0 +1,25 @@
+{
+  "name": "tabsl/tabslturnstile",
+  "description": "Integration von Cloudflare Turnstile Captcha.",
+  "type": "oxideshop-module",
+  "license": [
+    "proprietary"
+  ],
+  "homepage": "https://github.com/tabsl",
+  "author": [
+    {
+      "name": "Tobias Merkl",
+      "homepage": "https://github.com/tabsl"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Tabsl\\Turnstile\\": "../../../source/modules/tabsl/tabslTurnstile"
+    }
+  },
+  "extra": {
+    "oxideshop": {
+      "target-directory": "tabsl/tabslTurnstile"
+    }
+  }
+}
