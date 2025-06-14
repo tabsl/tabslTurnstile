@@ -19,7 +19,7 @@ $sMetadataVersion = '2.1';
 // tabsl module id
 $psModuleId = 'tabslTurnstile';
 $psModuleName = '<b>tabsl</b>Turnstile';
-$psModuleVersion = '1.0.0';
+$psModuleVersion = '1.0.1';
 
 // tabsl module description
 $psModuleDesc = 'Integration von Cloudflare Turnstile Captcha.';
@@ -44,7 +44,7 @@ $aModule = [
     'email' => '',
     'extend' => [
         \OxidEsales\Eshop\Application\Controller\ContactController::class => \Tabsl\Turnstile\Controller\ContactController::class,
-        \OxidEsales\Eshop\Application\Controller\RegisterController::class => \Tabsl\Turnstile\Controller\RegisterController::class,
+        \OxidEsales\Eshop\Application\Component\UserComponent::class => \Tabsl\Turnstile\Component\UserComponent::class,
         \OxidEsales\Eshop\Application\Controller\NewsletterController::class => \Tabsl\Turnstile\Controller\NewsletterController::class,
         \OxidEsales\Eshop\Application\Controller\ForgotPasswordController::class => \Tabsl\Turnstile\Controller\ForgotPasswordController::class,
         \OxidEsales\Eshop\Core\ViewConfig::class => \Tabsl\Turnstile\Core\ViewConfig::class,
