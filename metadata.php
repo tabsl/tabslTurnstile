@@ -19,7 +19,7 @@ $sMetadataVersion = '2.1';
 // tabsl module id
 $psModuleId = 'tabslTurnstile';
 $psModuleName = '<b>tabsl</b>Turnstile';
-$psModuleVersion = '1.0.1';
+$psModuleVersion = '1.0.2';
 
 // tabsl module description
 $psModuleDesc = 'Integration von Cloudflare Turnstile Captcha.';
@@ -71,15 +71,5 @@ $aModule = [
         'onDeactivate' => '\Tabsl\Turnstile\Core\Setup::onDeactivate',
     ],
     'templates' => [],
-    'smartyPluginDirectories' => [],
-    'lang' => [
-        'de' => [
-            'translations/de/tabslturnstile_lang.php',
-            'Application/translations/de/tabslturnstile_lang.php',
-        ],
-        'en' => [
-            'translations/en/tabslturnstile_lang.php',
-            'Application/translations/en/tabslturnstile_lang.php',
-        ],
-    ],
+    'smartyPluginDirectories' => []
 ];
