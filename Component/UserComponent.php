@@ -12,12 +12,10 @@ class UserComponent extends UserComponent_parent
 
     public function createUser()
     {
-        $send = parent::createUser();
-
         $turnstileService = new TurnstileService();
 
         if ($turnstileService->isEnabledForRegister()) {
-            $turnstileToken = Registry::getRequest()->getRequestEscapedParameter('cf-turnstile-response');
+            $turnstileToken = Registry::getRequest()->getRequestEscapedParameter('cf-turnstile-response') ?? null;
             $remoteIp = $_SERVER['REMOTE_ADDR'] ?? null;
 
             if (!$turnstileService->verifyToken($turnstileToken, $remoteIp)) {
@@ -26,6 +24,6 @@ class UserComponent extends UserComponent_parent
             }
         }
 
-        return $send;
+        return parent::createUser();
     }
 }

@@ -10,10 +10,10 @@ class TurnstileService
 {
     private const VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
-    public function verifyToken(string $token, string $remoteIp = null): bool
+    public function verifyToken(string|null $token, string $remoteIp): bool
     {
         $secretKey = Registry::getConfig()->getConfigParam('tabslturnstile_secret_key');
-        
+
         if (empty($secretKey) || empty($token)) {
             return false;
         }
@@ -28,13 +28,13 @@ class TurnstileService
         }
 
         $response = $this->makeRequest(self::VERIFY_URL, $postData);
-        
+
         if (!$response) {
             return false;
         }
 
         $result = json_decode($response, true);
-        
+
         return isset($result['success']) && $result['success'] === true;
     }
 
@@ -85,7 +85,7 @@ class TurnstileService
         ]);
 
         $response = @file_get_contents($url, false, $context);
-        
+
         return $response !== false ? $response : null;
     }
-} 
+}
