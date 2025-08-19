@@ -10,7 +10,7 @@ class TurnstileService
 {
     private const VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
-    public function verifyToken(string|null $token, string $remoteIp): bool
+    public function verifyToken($token, string $remoteIp): bool
     {
         $secretKey = Registry::getConfig()->getConfigParam('tabslturnstile_secret_key');
 
