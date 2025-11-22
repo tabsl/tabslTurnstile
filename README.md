@@ -1,6 +1,6 @@
 # tabslTurnstile
 
-Turnstile plugin für OXID eShop.
+Turnstile plugin for OXID eShop 6.
 
 ## Installation
 
