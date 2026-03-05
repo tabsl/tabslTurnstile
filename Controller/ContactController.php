@@ -11,8 +11,6 @@ class ContactController extends ContactController_parent
 {
     public function send()
     {
-        $send = parent::send();
-
         $turnstileService = new TurnstileService();
 
         if ($turnstileService->isEnabledForContact()) {
@@ -25,6 +23,6 @@ class ContactController extends ContactController_parent
             }
         }
 
-        return $send;
+        return parent::send();
     }
 }

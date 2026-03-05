@@ -5,7 +5,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @copyright (c) Tobias Merkl | 2025
+ * @copyright (c) Tobias Merkl | 2026
  * @link https://oxid-module.eu
  * @link https://github.com/tabsl/tabslTurnstile
  * @package tabslTurnstile
@@ -19,7 +19,7 @@ $sMetadataVersion = '2.1';
 // tabsl module id
 $psModuleId = 'tabslTurnstile';
 $psModuleName = '<b>tabsl</b>Turnstile';
-$psModuleVersion = '1.0.4';
+$psModuleVersion = '1.0.5';
 
 // tabsl module description
 $psModuleDesc = 'Integration von Cloudflare Turnstile Captcha.';
