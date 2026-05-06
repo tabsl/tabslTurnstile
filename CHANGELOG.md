@@ -2,6 +2,11 @@
 
 Chronological commit log of all notable changes.
 
+### 2026-05-06
+
+- Fixed newsletter subscription Turnstile check by overriding the correct OXID `send()` method instead of `addMe()`
+- Bumped version to 1.0.6
+
 ### 2026-03-05
 
 - Fixed Turnstile validation in all controllers: captcha check now runs before the actual action (contact, password reset, newsletter)

@@ -9,7 +9,7 @@ use Tabsl\Turnstile\Service\TurnstileService;
 
 class NewsletterController extends NewsletterController_parent
 {
-    public function addMe()
+    public function send()
     {
         $turnstileService = new TurnstileService();
 
@@ -23,6 +23,6 @@ class NewsletterController extends NewsletterController_parent
             }
         }
 
-        return parent::addMe();
+        return parent::send();
     }
 } 

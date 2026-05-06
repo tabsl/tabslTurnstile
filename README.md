@@ -23,5 +23,5 @@ Turnstile plugin for OXID eShop 6.
 
 ## Copyright
 
-	Tobias Merkl | 2025
+	Tobias Merkl | 2026
 	https://oxid-module.eu
