@@ -1,7 +1,5 @@
 # Changelog
 
-Chronological commit log of all notable changes.
-
 ### 2026-05-06
 
 - Fixed newsletter subscription Turnstile check by overriding the correct OXID `send()` method instead of `addMe()`
