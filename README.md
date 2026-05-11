@@ -115,10 +115,13 @@ Trotzdem sollte die Nutzung in der Datenschutzerklärung des Shops erwähnt werd
 - PHP 7.x und PHP 8.x
 - Standard-Theme sowie Shop-Themes mit Standard-Templates für Kontakt, Registrierung, Newsletter und Passwort vergessen
 
+## Changelog
+
+Siehe [CHANGELOG.md](CHANGELOG.md).
+
 ## License
 
-Dieses Modul steht unter der **GNU General Public License v3.0 (oder neuer)**.
-Den vollständigen Lizenztext findest du in der Datei [LICENSE](LICENSE) bzw. unter <https://www.gnu.org/licenses/gpl-3.0.html>.
+GNU General Public License v3.0 — siehe [LICENSE](LICENSE).
 
 ## Copyright
 
