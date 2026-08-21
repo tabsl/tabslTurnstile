@@ -7,6 +7,11 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-08-21
+
+### Changed
+- Fehlgeschlagene Turnstile-Prüfungen und automatische Schutz-Ein-/Ausschaltungen werden jetzt im Shop-Log festgehalten
+
 ## [1.1.0] - 2026-08-21
 
 ### Added

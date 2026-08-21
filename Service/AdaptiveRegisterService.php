@@ -143,6 +143,8 @@ class AdaptiveRegisterService
             return true;
         }
 
+        $threshold = $turnstileService->getRegisterThreshold();
+
         try {
             $count = $this->countAttempts(
                 $this->getShopId(),
@@ -160,7 +162,15 @@ class AdaptiveRegisterService
             }
         }
 
-        return $count >= $turnstileService->getRegisterThreshold();
+        $active = $count >= $threshold;
+        if (!$active && $protectUntil > 0) {
+            Registry::getLogger()->info(
+                '[AdaptiveRegisterService] wave ended: count=' . $count . ' threshold=' . $threshold
+            );
+            $this->saveProtectUntil(0);
+        }
+
+        return $active;
     }
 
     private function refreshProtection(TurnstileService $turnstileService, $shopId, $now, $windowSeconds): void
@@ -174,6 +184,14 @@ class AdaptiveRegisterService
         $current = (int) Registry::getConfig()->getConfigParam(self::PROTECT_UNTIL_PARAM);
         if ($until <= $current) {
             return;
+        }
+
+        if ($current <= $now) {
+            Registry::getLogger()->notice(
+                '[AdaptiveRegisterService] wave triggered: count=' . $count
+                . ' threshold=' . $turnstileService->getRegisterThreshold()
+                . ' protect_until=' . date('c', $until)
+            );
         }
 
         $this->saveProtectUntil($until);

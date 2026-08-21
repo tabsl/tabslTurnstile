@@ -14,7 +14,13 @@ class TurnstileService
     {
         $secretKey = Registry::getConfig()->getConfigParam('tabslturnstile_secret_key');
 
-        if (empty($secretKey) || empty($token)) {
+        if (empty($secretKey)) {
+            Registry::getLogger()->warning('[TurnstileService] verification skipped: no secret key configured');
+            return false;
+        }
+
+        if (empty($token)) {
+            Registry::getLogger()->warning('[TurnstileService] verification failed: no token submitted (ip=' . $remoteIp . ')');
             return false;
         }
 
@@ -30,12 +36,21 @@ class TurnstileService
         $response = $this->makeRequest(self::VERIFY_URL, $postData);
 
         if (!$response) {
+            Registry::getLogger()->warning('[TurnstileService] verification failed: no response from Cloudflare (ip=' . $remoteIp . ')');
             return false;
         }
 
         $result = json_decode($response, true);
+        $success = isset($result['success']) && $result['success'] === true;
 
-        return isset($result['success']) && $result['success'] === true;
+        if (!$success) {
+            $errorCodes = isset($result['error-codes']) && is_array($result['error-codes'])
+                ? implode(',', $result['error-codes'])
+                : 'unknown';
+            Registry::getLogger()->warning('[TurnstileService] verification failed: ' . $errorCodes . ' (ip=' . $remoteIp . ')');
+        }
+
+        return $success;
     }
 
     public function getSiteKey(): string
