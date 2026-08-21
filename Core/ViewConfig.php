@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tabsl\Turnstile\Core;
 
+use Tabsl\Turnstile\Service\AdaptiveRegisterService;
 use Tabsl\Turnstile\Service\TurnstileService;
 
 class ViewConfig extends ViewConfig_parent
@@ -28,5 +29,10 @@ class ViewConfig extends ViewConfig_parent
     public function setTurnstileScriptLoaded(): void
     {
         $this->turnstileScriptLoaded = true;
+    }
+
+    public function isTurnstileRegisterChallengeRequired(): bool
+    {
+        return (new AdaptiveRegisterService())->isChallengeRequired();
     }
 } 

@@ -32,7 +32,19 @@ $aLang = [
     'HELP_SHOP_MODULE_tabslturnstile_enable_contact' => 'Turnstile im Kontaktformular aktivieren',
 
     'SHOP_MODULE_tabslturnstile_enable_register' => 'Registrierung',
-    'HELP_SHOP_MODULE_tabslturnstile_enable_register' => 'Turnstile bei der Benutzerregistrierung aktivieren',
+    'HELP_SHOP_MODULE_tabslturnstile_enable_register' => 'Turnstile bei der Benutzerregistrierung, der Account-Anlage im Checkout und beim Gastkonto aktivieren. Master-Schalter: aus bleibt aus, auch bei einer Welle.',
+
+    'SHOP_MODULE_tabslturnstile_enable_register_adaptive' => 'Registrierung nur bei Welle (adaptiv)',
+    'HELP_SHOP_MODULE_tabslturnstile_enable_register_adaptive' => 'Wenn aktiv, erscheint Turnstile an Registrierung, Checkout-Account und Gastkonto nur bei einer Welle (viele verschiedene E-Mails im Zeitfenster). Im Alltag kein Widget. Default: aus.',
+
+    'SHOP_MODULE_tabslturnstile_register_window' => 'Wellen-Zeitfenster (Minuten)',
+    'HELP_SHOP_MODULE_tabslturnstile_register_window' => 'Gleitendes Fenster in Minuten (mindestens 1, Default 5). Innerhalb dieses Zeitraums werden verschiedene E-Mail-Adressen gezählt. Die Mindest-An-Dauer des Schutzes entspricht diesem Wert.',
+
+    'SHOP_MODULE_tabslturnstile_register_threshold' => 'Wellen-Schwelle (E-Mails)',
+    'HELP_SHOP_MODULE_tabslturnstile_register_threshold' => 'Anzahl verschiedener E-Mail-Adressen im Zeitfenster, ab der der Schutz anspringt (mindestens 1, Default 10). Dieselbe Adresse mehrfach zählt als 1. Der auslösende Versuch läuft noch ohne Widget durch.',
+
+    'SHOP_MODULE_tabslturnstile_register_domains' => 'Domainliste (optional)',
+    'HELP_SHOP_MODULE_tabslturnstile_register_domains' => 'Leer: alle Domains werden geprüft. Gefüllt: nur diese Domains zählen für die Welle (z. B. gmail.com, yahoo.com). Eine Domain pro Eintrag, ohne @, Groß/Kleinschreibung egal. googlemail.com extra eintragen. Die Liste filtert nur den Zähler — ist der Schutz an, sehen alle das Widget.',
 
     'SHOP_MODULE_tabslturnstile_enable_newsletter' => 'Newsletter',
     'HELP_SHOP_MODULE_tabslturnstile_enable_newsletter' => 'Turnstile bei der Newsletter-Anmeldung aktivieren',

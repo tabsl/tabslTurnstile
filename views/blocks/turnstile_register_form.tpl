@@ -1,7 +1,7 @@
 [{$smarty.block.parent}]
 
 [{assign var="turnstileService" value=$oViewConf->getTurnstileService()}]
-[{if $turnstileService && $turnstileService->isEnabledForRegister() && $turnstileService->getSiteKey()}]
+[{if $turnstileService && $oViewConf->isTurnstileRegisterChallengeRequired() && $turnstileService->getSiteKey()}]
     <div class="form-group">
         <label class=" control-label col-lg-3">
             &nbsp;

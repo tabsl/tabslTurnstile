@@ -63,6 +63,32 @@ class TurnstileService
         return (bool) Registry::getConfig()->getConfigParam('tabslturnstile_enable_register');
     }
 
+    public function isRegisterAdaptiveEnabled(): bool
+    {
+        return (bool) Registry::getConfig()->getConfigParam('tabslturnstile_enable_register_adaptive');
+    }
+
+    public function getRegisterWindowMinutes(): int
+    {
+        $window = (int) Registry::getConfig()->getConfigParam('tabslturnstile_register_window');
+
+        return $window >= 1 ? $window : 5;
+    }
+
+    public function getRegisterThreshold(): int
+    {
+        $threshold = (int) Registry::getConfig()->getConfigParam('tabslturnstile_register_threshold');
+
+        return $threshold >= 1 ? $threshold : 10;
+    }
+
+    public function getRegisterDomains()
+    {
+        $domains = Registry::getConfig()->getConfigParam('tabslturnstile_register_domains');
+
+        return $domains !== null ? $domains : [];
+    }
+
     public function isEnabledForNewsletter(): bool
     {
         return (bool) Registry::getConfig()->getConfigParam('tabslturnstile_enable_newsletter');

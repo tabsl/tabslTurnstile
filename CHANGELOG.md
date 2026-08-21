@@ -1,5 +1,12 @@
 # Changelog
 
+### 2026-08-21
+
+- Added optional adaptive Turnstile for registration, checkout account creation and guest checkout: off in calm traffic, on during an email-wave, then off again
+- Wave counter uses distinct e-mail addresses in a configurable window (default 10 in 5 minutes); optional domain list filters what counts
+- Fixed missing server-side Turnstile check when an existing guest account edits its address during checkout (`changeUser`/`changeuser_testvalues`), closing a bypass of the challenge that only `createUser` enforced before
+- Bumped version to 1.1.0
+
 ### 2026-05-06
 
 - Fixed newsletter subscription Turnstile check by overriding the correct OXID `send()` method instead of `addMe()`

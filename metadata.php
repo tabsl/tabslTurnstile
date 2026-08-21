@@ -19,7 +19,7 @@ $sMetadataVersion = '2.1';
 // tabsl module id
 $psModuleId = 'tabslTurnstile';
 $psModuleName = '<b>tabsl</b>Turnstile';
-$psModuleVersion = '1.0.6';
+$psModuleVersion = '1.1.0';
 
 // tabsl module description
 $psModuleDesc = 'Integration von Cloudflare Turnstile Captcha.';
@@ -63,6 +63,10 @@ $aModule = [
         ['group' => 'tabslturnstile_main', 'name' => 'tabslturnstile_size', 'type' => 'select', 'value' => 'normal', 'constraints' => 'normal|compact'],
         ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_enable_contact', 'type' => 'bool', 'value' => true],
         ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_enable_register', 'type' => 'bool', 'value' => true],
+        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_enable_register_adaptive', 'type' => 'bool', 'value' => false],
+        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_register_window', 'type' => 'num', 'value' => '5'],
+        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_register_threshold', 'type' => 'num', 'value' => '10'],
+        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_register_domains', 'type' => 'arr', 'value' => []],
         ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_enable_newsletter', 'type' => 'bool', 'value' => true],
         ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_enable_forgotpassword', 'type' => 'bool', 'value' => true],
     ],

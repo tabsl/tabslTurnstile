@@ -48,7 +48,7 @@ Die Turnstile-Prüfung erfolgt **vor** der eigentlichen Aktion (Kontaktversand, 
 composer require tabsl/tabslturnstile
 ```
 
-Anschließend das Modul im OXID Admin unter **Erweiterungen → Module** aktivieren.
+Anschließend das Modul im OXID Admin unter **Erweiterungen → Module** aktivieren. Beim Update auf 1.1.0 das Modul einmal deaktivieren und wieder aktivieren, damit die Tabelle für den adaptiven Zähler angelegt wird.
 
 ### Cloudflare Turnstile einrichten
 
@@ -77,12 +77,18 @@ Im OXID Admin unter **Erweiterungen → Module → tabslTurnstile → Einstellun
 | `tabslturnstile_secret_key`            | Secret Key aus dem Cloudflare Dashboard            |
 | `tabslturnstile_theme`                 | `auto`, `light` oder `dark`                        |
 | `tabslturnstile_size`                  | `normal` oder `compact`                            |
-| `tabslturnstile_enable_contact`        | Turnstile im Kontaktformular aktivieren            |
-| `tabslturnstile_enable_register`       | Turnstile bei der Registrierung aktivieren         |
-| `tabslturnstile_enable_newsletter`     | Turnstile bei der Newsletter-Anmeldung aktivieren  |
-| `tabslturnstile_enable_forgotpassword` | Turnstile bei Passwort vergessen aktivieren        |
+| `tabslturnstile_enable_contact`            | Turnstile im Kontaktformular aktivieren                                                                 |
+| `tabslturnstile_enable_register`           | Turnstile bei Registrierung, Checkout-Account und Gastkonto (Master-Schalter)                           |
+| `tabslturnstile_enable_register_adaptive`  | Optional: Turnstile dort nur bei einer Welle, im Alltag ohne Widget (Default: aus)                      |
+| `tabslturnstile_register_window`           | Wellen-Zeitfenster in Minuten (Default: 5)                                                              |
+| `tabslturnstile_register_threshold`        | Anzahl verschiedener E-Mails im Fenster, ab der der Schutz anspringt (Default: 10)                      |
+| `tabslturnstile_register_domains`          | Optional: nur diese E-Mail-Domains zählen. Leer = alle Domains                                          |
+| `tabslturnstile_enable_newsletter`         | Turnstile bei der Newsletter-Anmeldung aktivieren                                                       |
+| `tabslturnstile_enable_forgotpassword`     | Turnstile beim Passwort-vergessen-Formular aktivieren                                                   |
 
 Nach dem Speichern ist Turnstile in allen aktivierten Formularen aktiv.
+
+**Adaptiver Modus (Registrierung):** Im Alltag kein Widget. Zähler = verschiedene E-Mail-Adressen (nicht jedes Absenden). Dieselbe Adresse mehrfach zählt als 1. Domainliste leer: alle Domains. Domainliste gefüllt: nur diese Domains. Ab der Schwelle gilt Turnstile shop-weit für Registrierung, Checkout-Account und Gast — auch für Adressen außerhalb der Liste. Der Versuch, der die Schwelle erreicht, läuft noch ohne Widget durch. Nach einem ruhigen Fenster (mindestens so lang wie das Zeitfenster) geht der Schutz von allein wieder aus. Kontakt, Newsletter und Passwort-vergessen bleiben beim Dauer-Toggle.
 
 ### Test-Schlüssel (für Entwicklung)
 
