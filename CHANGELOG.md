@@ -1,45 +1,67 @@
 # Changelog
 
-### 2026-08-21
+Alle wesentlichen Änderungen an diesem Projekt werden in dieser Datei dokumentiert.
 
-- Added optional adaptive Turnstile for registration, checkout account creation and guest checkout: off in calm traffic, on during an email-wave, then off again
-- Wave counter uses distinct e-mail addresses in a configurable window (default 10 in 5 minutes); optional domain list filters what counts
-- Fixed missing server-side Turnstile check when an existing guest account edits its address during checkout (`changeUser`/`changeuser_testvalues`), closing a bypass of the challenge that only `createUser` enforced before
-- Bumped version to 1.1.0
+Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.1.0/),
+und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
-### 2026-05-06
+## [Unreleased]
 
-- Fixed newsletter subscription Turnstile check by overriding the correct OXID `send()` method instead of `addMe()`
-- Bumped version to 1.0.6
+## [1.1.0] - 2026-08-21
 
-### 2026-03-05
+### Added
+- Optionaler adaptiver Turnstile-Schutz für Registrierung, Checkout-Kontoerstellung und Gastbestellung: bei normalem Traffic deaktiviert, bei einer Anfragewelle automatisch aktiviert und danach wieder abgeschaltet
+- Wellenerkennung zählt unterschiedliche E-Mail-Adressen in einem konfigurierbaren Zeitfenster (Standard: 10 in 5 Minuten); optionale Domainliste schränkt die Zählung ein
 
-- Fixed Turnstile validation in all controllers: captcha check now runs before the actual action (contact, password reset, newsletter)
-- Bumped version to 1.0.5
+### Fixed
+- Fehlende serverseitige Turnstile-Prüfung behoben, wenn ein bestehendes Gastkonto seine Adresse im Checkout ändert — bisher war nur die Registrierung selbst abgesichert
 
-### 2025-11-22
+## [1.0.6] - 2026-05-06
 
-- Added README with module description, installation guide and configuration notes
+### Fixed
+- Newsletter-Anmeldung prüft die Turnstile-Bestätigung jetzt an der richtigen Stelle im Ablauf
 
-### 2025-08-19
+## [1.0.5] - 2026-03-05
 
-- Fixed PHP 7 compatibility for TurnstileService
+### Added
+- README um Modulbeschreibung, Installationsanleitung und Konfigurationshinweise ergänzt
 
-### 2025-07-31
+### Fixed
+- Turnstile-Prüfung läuft in allen Controllern jetzt vor der eigentlichen Aktion (Kontakt, Passwort zurücksetzen, Newsletter)
 
-- Fixed user registration with Turnstile validation
+## [1.0.4] - 2025-08-19
 
-### 2025-06-19
+### Fixed
+- Kompatibilität mit PHP 7 für den Turnstile-Dienst wiederhergestellt
 
-- Removed redundant language configuration from module metadata
+## [1.0.3] - 2025-07-31
 
-### 2025-06-14
+### Fixed
+- Fehler bei der Turnstile-Prüfung während der Registrierung behoben
 
-- Fixed user registration in metadata
+## [1.0.2] - 2025-06-19
 
-### 2025-06-08
+### Removed
+- Überflüssige Sprachkonfiguration aus den Modul-Metadaten entfernt
 
-- Initial implementation of Cloudflare Turnstile module for OXID eShop
-- Captcha protection for contact form, forgot password, newsletter signup and registration
-- Admin configuration for site key, secret key, theme and size
-- Individually toggleable Turnstile checks per form
+## [1.0.1] - 2025-06-14
+
+### Fixed
+- Fehler bei der Registrierung in den Modul-Metadaten behoben
+
+## [1.0.0] - 2025-06-08
+
+### Added
+- Erste Version des Cloudflare-Turnstile-Moduls für OXID eShop
+- Captcha-Schutz für Kontaktformular, Passwort-vergessen, Newsletter-Anmeldung und Registrierung
+- Admin-Konfiguration für Site Key, Secret Key, Theme und Größe
+- Einzeln aktivierbare Turnstile-Prüfung je Formular
+
+[Unreleased]: https://github.com/tabsl/tabslTurnstile/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/tabsl/tabslTurnstile/compare/1.0.6...1.1.0
+[1.0.6]: https://github.com/tabsl/tabslTurnstile/compare/1.0.5...1.0.6
+[1.0.5]: https://github.com/tabsl/tabslTurnstile/compare/1.0.4...1.0.5
+[1.0.4]: https://github.com/tabsl/tabslTurnstile/compare/1.0.3...1.0.4
+[1.0.3]: https://github.com/tabsl/tabslTurnstile/compare/1.0.2...1.0.3
+[1.0.2]: https://github.com/tabsl/tabslTurnstile/compare/1.0.1...1.0.2
+[1.0.1]: https://github.com/tabsl/tabslTurnstile/compare/1.0.0...1.0.1
