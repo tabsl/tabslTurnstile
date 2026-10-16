@@ -7,6 +7,8 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-10-16
+
 ### Changed
 - Unterstützt jetzt OXID eShop 7 mit Twig-Themes (APEX), Voraussetzung ist PHP 8.1
 - Moduleinstellungen werden über den Einstellungsdienst von OXID 7 gelesen; Zahlenwerte aus einer übernommenen 1.x-Konfiguration bleiben gültig
@@ -71,7 +73,8 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 - Admin-Konfiguration für Site Key, Secret Key, Theme und Größe
 - Einzeln aktivierbare Turnstile-Prüfung je Formular
 
-[Unreleased]: https://github.com/tabsl/tabslTurnstile/compare/1.1.0...HEAD
+[Unreleased]: https://github.com/tabsl/tabslTurnstile/compare/2.0.0...HEAD
+[2.0.0]: https://github.com/tabsl/tabslTurnstile/compare/1.1.1...2.0.0
 [1.1.0]: https://github.com/tabsl/tabslTurnstile/compare/1.0.6...1.1.0
 [1.0.6]: https://github.com/tabsl/tabslTurnstile/compare/1.0.5...1.0.6
 [1.0.5]: https://github.com/tabsl/tabslTurnstile/compare/1.0.4...1.0.5
