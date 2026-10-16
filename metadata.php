@@ -18,8 +18,8 @@ $sMetadataVersion = '2.1';
 
 // tabsl module id
 $psModuleId = 'tabslTurnstile';
-$psModuleName = '<b>tabsl</b>Turnstile';
-$psModuleVersion = '1.1.1';
+$psModuleName = 'tabslTurnstile';
+$psModuleVersion = '2.0.0';
 
 // tabsl module description
 $psModuleDesc = 'Integration von Cloudflare Turnstile Captcha.';
@@ -50,30 +50,22 @@ $aModule = [
         \OxidEsales\Eshop\Core\ViewConfig::class => \Tabsl\Turnstile\Core\ViewConfig::class,
     ],
     'controllers' => [],
-    'blocks' => [
-        ['template' => 'form/contact.tpl', 'block' => 'contact_form_fields', 'file' => 'views/blocks/turnstile_contact_form.tpl'],
-        ['template' => 'form/fieldset/user_billing.tpl', 'block' => 'form_user_billing_country', 'file' => 'views/blocks/turnstile_register_form.tpl'],
-        ['template' => 'form/newsletter.tpl', 'block' => 'captcha_form', 'file' => 'views/blocks/turnstile_newsletter_form.tpl'],
-        ['template' => 'form/forgotpwd_email.tpl', 'block' => 'captcha_form', 'file' => 'views/blocks/turnstile_forgotpwd_form.tpl'],
-    ],
     'settings' => [
         ['group' => 'tabslturnstile_main', 'name' => 'tabslturnstile_site_key', 'type' => 'str', 'value' => ''],
         ['group' => 'tabslturnstile_main', 'name' => 'tabslturnstile_secret_key', 'type' => 'password', 'value' => ''],
         ['group' => 'tabslturnstile_main', 'name' => 'tabslturnstile_theme', 'type' => 'select', 'value' => 'auto', 'constraints' => 'auto|light|dark'],
         ['group' => 'tabslturnstile_main', 'name' => 'tabslturnstile_size', 'type' => 'select', 'value' => 'normal', 'constraints' => 'normal|compact'],
-        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_enable_contact', 'type' => 'bool', 'value' => true],
-        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_enable_register', 'type' => 'bool', 'value' => true],
+        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_enable_contact', 'type' => 'bool', 'value' => false],
+        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_enable_register', 'type' => 'bool', 'value' => false],
         ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_enable_register_adaptive', 'type' => 'bool', 'value' => false],
-        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_register_window', 'type' => 'num', 'value' => '5'],
-        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_register_threshold', 'type' => 'num', 'value' => '10'],
+        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_register_window', 'type' => 'num', 'value' => 5],
+        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_register_threshold', 'type' => 'num', 'value' => 10],
         ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_register_domains', 'type' => 'arr', 'value' => []],
-        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_enable_newsletter', 'type' => 'bool', 'value' => true],
-        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_enable_forgotpassword', 'type' => 'bool', 'value' => true],
+        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_enable_newsletter', 'type' => 'bool', 'value' => false],
+        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_enable_forgotpassword', 'type' => 'bool', 'value' => false],
     ],
     'events' => [
         'onActivate' => '\Tabsl\Turnstile\Core\Setup::onActivate',
         'onDeactivate' => '\Tabsl\Turnstile\Core\Setup::onDeactivate',
     ],
-    'templates' => [],
-    'smartyPluginDirectories' => []
 ];

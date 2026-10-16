@@ -45,10 +45,13 @@ Die Turnstile-Prüfung erfolgt **vor** der eigentlichen Aktion (Kontaktversand, 
 ### Installation
 
 ```bash
-composer require tabsl/tabslturnstile
+composer require tabsl/tabslturnstile:^2.0
+vendor/bin/oe-console oe:module:activate tabslTurnstile
 ```
 
-Anschließend das Modul im OXID Admin unter **Erweiterungen → Module** aktivieren. Beim Update auf 1.1.0 das Modul einmal deaktivieren und wieder aktivieren, damit die Tabelle für den adaptiven Zähler angelegt wird.
+Alternativ das Modul im OXID Admin unter **Erweiterungen → Module** aktivieren. Bei der Aktivierung wird die Tabelle für den adaptiven Zähler angelegt.
+
+Für OXID eShop 6 bleibt Version 1.x zuständig (`composer require tabsl/tabslturnstile:^1.1`, Branch `1.x`).
 
 ### Cloudflare Turnstile einrichten
 
@@ -86,7 +89,7 @@ Im OXID Admin unter **Erweiterungen → Module → tabslTurnstile → Einstellun
 | `tabslturnstile_enable_newsletter`         | Turnstile bei der Newsletter-Anmeldung aktivieren                                                       |
 | `tabslturnstile_enable_forgotpassword`     | Turnstile beim Passwort-vergessen-Formular aktivieren                                                   |
 
-Nach dem Speichern ist Turnstile in allen aktivierten Formularen aktiv.
+Nach der Installation sind alle Formular-Schalter aus, damit ein Shop ohne eingetragene Schlüssel keine Formulare sperrt. Erst Site Key und Secret Key speichern, dann die gewünschten Formulare einschalten. Ab dann ist Turnstile dort aktiv.
 
 **Adaptiver Modus (Registrierung):** Im Alltag kein Widget. Zähler = verschiedene E-Mail-Adressen (nicht jedes Absenden). Dieselbe Adresse mehrfach zählt als 1. Domainliste leer: alle Domains. Domainliste gefüllt: nur diese Domains. Ab der Schwelle gilt Turnstile shop-weit für Registrierung, Checkout-Account und Gast — auch für Adressen außerhalb der Liste. Der Versuch, der die Schwelle erreicht, läuft noch ohne Widget durch. Nach einem ruhigen Fenster (mindestens so lang wie das Zeitfenster) geht der Schutz von allein wieder aus. Kontakt, Newsletter und Passwort-vergessen bleiben beim Dauer-Toggle.
 
@@ -117,9 +120,20 @@ Trotzdem sollte die Nutzung in der Datenschutzerklärung des Shops erwähnt werd
 
 ## Kompatibilität
 
-- OXID eShop 6.x
-- PHP 7.x und PHP 8.x
-- Standard-Theme sowie Shop-Themes mit Standard-Templates für Kontakt, Registrierung, Newsletter und Passwort vergessen
+- OXID eShop 7.x (Version 2.x), OXID eShop 6.x nur mit Version 1.x
+- PHP 8.1 oder neuer
+- Twig-Themes auf Basis von APEX. Smarty-Themes werden ab Version 2.0 nicht mehr unterstützt.
+
+### Einbindung ins Theme
+
+| Formular | Twig-Template | Einbindung |
+| --- | --- | --- |
+| Kontakt | `form/contact.html.twig` | Block `captcha_form` |
+| Registrierung, Checkout-Account, Gastkonto | `form/fieldset/user_billing.html.twig` | Block `form_user_billing_country` |
+| Newsletter | `form/newsletter.html.twig` | per JavaScript über Block `base_js` in `layout/base.html.twig` |
+| Passwort vergessen | `form/forgotpwd_email.html.twig` | per JavaScript über Block `base_js` in `layout/base.html.twig` |
+
+Newsletter- und Passwort-vergessen-Formular haben in APEX keinen Twig-Block innerhalb des `<form>`. Das Modul setzt das Widget dort per JavaScript direkt vor den Absenden-Button. Erkannt wird das Formular an den versteckten Feldern `cl` und `fnc`. Ein eigenes Theme, das diese Felder ändert oder Blöcke entfernt, muss die Einbindung selbst übernehmen.
 
 ## Changelog
 

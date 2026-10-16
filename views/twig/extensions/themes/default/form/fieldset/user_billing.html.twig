@@ -1,0 +1,9 @@
+{% extends 'form/fieldset/user_billing.html.twig' %}
+
+{% block form_user_billing_country %}
+    {{ parent() }}
+
+    {% if not tabslTurnstileRenderedOutsideBilling|default(false) %}
+        {% include '@tabslTurnstile/turnstile_register.html.twig' %}
+    {% endif %}
+{% endblock %}

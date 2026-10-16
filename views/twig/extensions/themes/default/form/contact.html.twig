@@ -1,0 +1,11 @@
+{% extends 'form/contact.html.twig' %}
+
+{% block captcha_form %}
+    {{ parent() }}
+
+    {% set turnstileService = oViewConf.getTurnstileService() %}
+    {% if turnstileService.isEnabledForContact() and turnstileService.getSiteKey() %}
+        {% include '@tabslTurnstile/turnstile_widget.html.twig' %}
+        {% include '@tabslTurnstile/turnstile_script.html.twig' %}
+    {% endif %}
+{% endblock %}

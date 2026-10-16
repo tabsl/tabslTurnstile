@@ -33,6 +33,30 @@ class ViewConfig extends ViewConfig_parent
 
     public function isTurnstileRegisterChallengeRequired(): bool
     {
+        $user = $this->getUser();
+        if ($user && $user->getId() && !empty($user->oxuser__oxpassword->value)) {
+            return false;
+        }
+
         return (new AdaptiveRegisterService())->isChallengeRequired();
+    }
+
+    public function getTurnstileInjectedFormFunction(): string
+    {
+        $turnstileService = $this->getTurnstileService();
+        if ($turnstileService->getSiteKey() === '') {
+            return '';
+        }
+
+        $controller = $this->getTopActiveClassName();
+        if ($controller === 'newsletter' && $turnstileService->isEnabledForNewsletter()) {
+            return 'send';
+        }
+
+        if ($controller === 'forgotpwd' && $turnstileService->isEnabledForForgotPassword()) {
+            return 'forgotpassword';
+        }
+
+        return '';
     }
 } 

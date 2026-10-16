@@ -1,0 +1,5 @@
+{% set turnstileService = oViewConf.getTurnstileService() %}
+{% if oViewConf.isTurnstileRegisterChallengeRequired() and turnstileService.getSiteKey() %}
+    {% include '@tabslTurnstile/turnstile_widget.html.twig' %}
+    {% include '@tabslTurnstile/turnstile_script.html.twig' %}
+{% endif %}

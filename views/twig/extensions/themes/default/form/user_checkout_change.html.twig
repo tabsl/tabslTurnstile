@@ -1,0 +1,13 @@
+{% extends 'form/user_checkout_change.html.twig' %}
+
+{# APEX hides #addressForm until the address is edited, so the widget must not live inside the billing fieldset here #}
+{% block user_checkout_billing_form %}
+    {% set tabslTurnstileRenderedOutsideBilling = true %}
+    {{ parent() }}
+{% endblock %}
+
+{% block user_checkout_billing_feedback %}
+    {{ parent() }}
+
+    {% include '@tabslTurnstile/turnstile_register.html.twig' %}
+{% endblock %}

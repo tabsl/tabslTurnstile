@@ -5,14 +5,26 @@ declare(strict_types=1);
 namespace Tabsl\Turnstile\Service;
 
 use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidEsales\EshopCommunity\Internal\Framework\Module\Facade\ModuleSettingServiceInterface;
 
 class TurnstileService
 {
+    public const MODULE_ID = 'tabslTurnstile';
+
     private const VERIFY_URL = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+
+    private ModuleSettingServiceInterface $moduleSettings;
+
+    public function __construct(?ModuleSettingServiceInterface $moduleSettings = null)
+    {
+        $this->moduleSettings = $moduleSettings
+            ?? ContainerFactory::getInstance()->getContainer()->get(ModuleSettingServiceInterface::class);
+    }
 
     public function verifyToken($token, string $remoteIp): bool
     {
-        $secretKey = Registry::getConfig()->getConfigParam('tabslturnstile_secret_key');
+        $secretKey = $this->getString('tabslturnstile_secret_key');
 
         if (empty($secretKey)) {
             Registry::getLogger()->warning('[TurnstileService] verification skipped: no secret key configured');
@@ -55,63 +67,77 @@ class TurnstileService
 
     public function getSiteKey(): string
     {
-        return Registry::getConfig()->getConfigParam('tabslturnstile_site_key') ?: '';
+        return $this->getString('tabslturnstile_site_key');
     }
 
     public function getTheme(): string
     {
-        return Registry::getConfig()->getConfigParam('tabslturnstile_theme') ?: 'auto';
+        return $this->getString('tabslturnstile_theme') ?: 'auto';
     }
 
     public function getSize(): string
     {
-        return Registry::getConfig()->getConfigParam('tabslturnstile_size') ?: 'normal';
+        return $this->getString('tabslturnstile_size') ?: 'normal';
     }
 
     public function isEnabledForContact(): bool
     {
-        return (bool) Registry::getConfig()->getConfigParam('tabslturnstile_enable_contact');
+        return $this->moduleSettings->getBoolean('tabslturnstile_enable_contact', self::MODULE_ID);
     }
 
     public function isEnabledForRegister(): bool
     {
-        return (bool) Registry::getConfig()->getConfigParam('tabslturnstile_enable_register');
+        return $this->moduleSettings->getBoolean('tabslturnstile_enable_register', self::MODULE_ID);
     }
 
     public function isRegisterAdaptiveEnabled(): bool
     {
-        return (bool) Registry::getConfig()->getConfigParam('tabslturnstile_enable_register_adaptive');
+        return $this->moduleSettings->getBoolean('tabslturnstile_enable_register_adaptive', self::MODULE_ID);
     }
 
     public function getRegisterWindowMinutes(): int
     {
-        $window = (int) Registry::getConfig()->getConfigParam('tabslturnstile_register_window');
+        $window = $this->getInteger('tabslturnstile_register_window');
 
         return $window >= 1 ? $window : 5;
     }
 
     public function getRegisterThreshold(): int
     {
-        $threshold = (int) Registry::getConfig()->getConfigParam('tabslturnstile_register_threshold');
+        $threshold = $this->getInteger('tabslturnstile_register_threshold');
 
         return $threshold >= 1 ? $threshold : 10;
     }
 
-    public function getRegisterDomains()
+    public function getRegisterDomains(): array
     {
-        $domains = Registry::getConfig()->getConfigParam('tabslturnstile_register_domains');
-
-        return $domains !== null ? $domains : [];
+        return $this->moduleSettings->getCollection('tabslturnstile_register_domains', self::MODULE_ID);
     }
 
     public function isEnabledForNewsletter(): bool
     {
-        return (bool) Registry::getConfig()->getConfigParam('tabslturnstile_enable_newsletter');
+        return $this->moduleSettings->getBoolean('tabslturnstile_enable_newsletter', self::MODULE_ID);
     }
 
     public function isEnabledForForgotPassword(): bool
     {
-        return (bool) Registry::getConfig()->getConfigParam('tabslturnstile_enable_forgotpassword');
+        return $this->moduleSettings->getBoolean('tabslturnstile_enable_forgotpassword', self::MODULE_ID);
+    }
+
+    private function getString(string $name): string
+    {
+        return $this->moduleSettings->getString($name, self::MODULE_ID)->toString();
+    }
+
+    private function getInteger(string $name): int
+    {
+        try {
+            return $this->moduleSettings->getInteger($name, self::MODULE_ID);
+        } catch (\TypeError) {
+            // Configurations carried over from 1.x store num settings as strings ('5'),
+            // which ModuleSettingService::getInteger() rejects under strict_types.
+            return (int) $this->getString($name);
+        }
     }
 
     private function makeRequest(string $url, array $postData): ?string

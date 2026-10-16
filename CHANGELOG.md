@@ -7,6 +7,15 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+### Changed
+- Unterstützt jetzt OXID eShop 7 mit Twig-Themes (APEX), Voraussetzung ist PHP 8.1
+- Moduleinstellungen werden über den Einstellungsdienst von OXID 7 gelesen; Zahlenwerte aus einer übernommenen 1.x-Konfiguration bleiben gültig
+- Turnstile-Widget wird über Twig-Template-Erweiterungen eingebunden, bei Newsletter und Passwort vergessen per JavaScript, weil APEX dort keinen Block im Formular anbietet
+- Alle Formular-Schalter sind bei Neuinstallation aus, bis die Cloudflare-Schlüssel eingetragen und die Formulare einzeln eingeschaltet sind; bestehende Einstellungen bleiben beim Update erhalten
+
+### Removed
+- Unterstützung für OXID eShop 6 und Smarty-Themes; dafür bleibt Version 1.x auf dem Branch `1.x`
+
 ## [1.1.1] - 2026-08-21
 
 ### Changed

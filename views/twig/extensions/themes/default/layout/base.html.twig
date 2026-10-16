@@ -1,0 +1,35 @@
+{% extends 'layout/base.html.twig' %}
+
+{% block base_js %}
+    {{ parent() }}
+
+    {% set turnstileFormFunction = oViewConf.getTurnstileInjectedFormFunction() %}
+    {% if turnstileFormFunction %}
+        {% set turnstileService = oViewConf.getTurnstileService() %}
+        {# APEX form/newsletter and form/forgotpwd_email offer no Twig block inside the form, so the widget is moved in client-side #}
+        <template id="tabslturnstile-widget">{% include '@tabslTurnstile/turnstile_widget.html.twig' %}</template>
+        <script>
+            (function () {
+                var controller = {{ oViewConf.getTopActiveClassName()|json_encode|raw }};
+                var formFunction = {{ turnstileFormFunction|json_encode|raw }};
+                var form = Array.prototype.find.call(document.forms, function (candidate) {
+                    return candidate.querySelector('input[name="cl"][value="' + controller + '"]')
+                        && candidate.querySelector('input[name="fnc"][value="' + formFunction + '"]');
+                });
+                if (!form) {
+                    return;
+                }
+                var widget = document.getElementById('tabslturnstile-widget').content.cloneNode(true);
+                var submitButton = form.querySelector('[type="submit"]');
+                if (submitButton && submitButton.parentNode !== form) {
+                    submitButton.parentNode.parentNode.insertBefore(widget, submitButton.parentNode);
+                } else if (submitButton) {
+                    form.insertBefore(widget, submitButton);
+                } else {
+                    form.appendChild(widget);
+                }
+            })();
+        </script>
+        {% include '@tabslTurnstile/turnstile_script.html.twig' %}
+    {% endif %}
+{% endblock %}
