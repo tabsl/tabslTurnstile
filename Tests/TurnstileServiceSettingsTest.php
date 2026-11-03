@@ -103,6 +103,8 @@ $configured = new FakeModuleSettings([
     'tabslturnstile_register_window' => 7,
     'tabslturnstile_register_threshold' => 20,
     'tabslturnstile_register_domains' => ['gmail.com'],
+    'tabslturnstile_blocked_domains' => ['maxxspace.com'],
+    'tabslturnstile_enable_honeypot' => true,
     'tabslturnstile_enable_newsletter' => false,
     'tabslturnstile_enable_forgotpassword' => true,
 ]);
@@ -119,6 +121,8 @@ assertSame(20, $service->getRegisterThreshold(), 'threshold as int');
 assertSame(['gmail.com'], $service->getRegisterDomains(), 'domains collection');
 assertSame(false, $service->isEnabledForNewsletter(), 'newsletter toggle');
 assertSame(true, $service->isEnabledForForgotPassword(), 'forgot password toggle');
+assertSame(['maxxspace.com'], $service->getBlockedDomains(), 'blocked domains collection');
+assertSame(true, $service->isHoneypotEnabled(), 'honeypot toggle');
 assertSame(['tabslTurnstile'], array_values(array_unique($configured->requestedModuleIds)), 'all reads use module id tabslTurnstile');
 
 $legacy = new TurnstileService(new FakeModuleSettings([
@@ -132,6 +136,9 @@ assertSame('auto', $legacy->getTheme(), 'empty theme falls back to auto');
 assertSame('normal', $legacy->getSize(), 'empty size falls back to normal');
 assertSame(12, $legacy->getRegisterWindowMinutes(), 'string window from 1.x config is read as int');
 assertSame(10, $legacy->getRegisterThreshold(), 'threshold below 1 falls back to 10');
+
+assertSame([], $legacy->getBlockedDomains(), 'missing block list after update blocks nothing');
+assertSame(false, $legacy->isHoneypotEnabled(), 'missing honeypot setting after update stays off');
 
 if ($failed > 0) {
     echo "\n{$failed} failed\n";

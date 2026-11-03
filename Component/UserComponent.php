@@ -48,6 +48,10 @@ class UserComponent extends UserComponent_parent
 
     private function guardTurnstile(): bool
     {
+        if ($this->rejectsSubmission()) {
+            return false;
+        }
+
         $adaptiveService = new AdaptiveRegisterService();
         $challengeRequired = $adaptiveService->isChallengeRequired();
 
@@ -66,6 +70,41 @@ class UserComponent extends UserComponent_parent
         }
 
         return true;
+    }
+
+    private function rejectsSubmission(): bool
+    {
+        $turnstileService = new TurnstileService();
+        $request = Registry::getRequest();
+        $remoteIp = $_SERVER['REMOTE_ADDR'] ?? '';
+
+        // Not empty(): a submitted "0" is a filled field.
+        $honeypotValue = $request->getRequestParameter('homepage_url');
+
+        if ($turnstileService->isHoneypotEnabled() && $honeypotValue !== null && $honeypotValue !== '') {
+            Registry::getLogger()->warning('[UserComponent] submission rejected: honeypot filled (ip=' . $remoteIp . ')');
+            Registry::getUtilsView()->addErrorToDisplay('TURNSTILE_SUBMISSION_REJECTED');
+            return true;
+        }
+
+        // The core stores invadr[oxuser__oxusername] over lgn_usr, so both have to pass.
+        $invadr = $request->getRequestParameter('invadr');
+        $emails = [
+            $request->getRequestParameter('lgn_usr'),
+            is_array($invadr) ? ($invadr['oxuser__oxusername'] ?? null) : null,
+        ];
+
+        foreach ($emails as $email) {
+            if (is_string($email) && AdaptiveRegisterService::isDomainBlocked($email, $turnstileService->getBlockedDomains())) {
+                Registry::getLogger()->warning(
+                    '[UserComponent] submission rejected: blocked domain ' . AdaptiveRegisterService::extractDomain($email) . ' (ip=' . $remoteIp . ')'
+                );
+                Registry::getUtilsView()->addErrorToDisplay('TURNSTILE_EMAIL_DOMAIN_BLOCKED');
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function shouldRecordGuestAttempt(): bool

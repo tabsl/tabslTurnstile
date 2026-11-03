@@ -61,6 +61,8 @@ $aModule = [
         ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_register_window', 'type' => 'num', 'value' => 5],
         ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_register_threshold', 'type' => 'num', 'value' => 10],
         ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_register_domains', 'type' => 'arr', 'value' => []],
+        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_blocked_domains', 'type' => 'arr', 'value' => []],
+        ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_enable_honeypot', 'type' => 'bool', 'value' => false],
         ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_enable_newsletter', 'type' => 'bool', 'value' => false],
         ['group' => 'tabslturnstile_features', 'name' => 'tabslturnstile_enable_forgotpassword', 'type' => 'bool', 'value' => false],
     ],

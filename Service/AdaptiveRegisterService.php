@@ -135,6 +135,13 @@ class AdaptiveRegisterService
         return $domain !== '' && in_array($domain, $domains, true);
     }
 
+    public static function isDomainBlocked($email, $blockedDomains): bool
+    {
+        $domain = self::extractDomain($email);
+
+        return $domain !== '' && in_array($domain, self::parseDomainList($blockedDomains), true);
+    }
+
     private function isWaveActive(TurnstileService $turnstileService): bool
     {
         $now = time();

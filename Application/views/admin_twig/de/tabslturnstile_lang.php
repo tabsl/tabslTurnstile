@@ -46,6 +46,12 @@ $aLang = [
     'SHOP_MODULE_tabslturnstile_register_domains' => 'Domainliste (optional)',
     'HELP_SHOP_MODULE_tabslturnstile_register_domains' => 'Leer: alle Domains werden geprüft. Gefüllt: nur diese Domains zählen für die Welle (z. B. gmail.com, yahoo.com). Eine Domain pro Eintrag, ohne @, Groß/Kleinschreibung egal. googlemail.com extra eintragen. Die Liste filtert nur den Zähler — ist der Schutz an, sehen alle das Widget.',
 
+    'SHOP_MODULE_tabslturnstile_blocked_domains' => 'Gesperrte E-Mail-Domains',
+    'HELP_SHOP_MODULE_tabslturnstile_blocked_domains' => 'Adressen dieser Domains werden bei Registrierung, Checkout-Account, Gastkonto und Newsletter-Anmeldung abgewiesen. Eine Domain pro Eintrag, ohne @, exakte Schreibweise, Subdomains zählen nicht mit. Leer: nichts wird gesperrt. Nicht verwechseln mit der Domainliste oben: Die zählt nur für die Welle und sperrt nicht. Vorhandene Kunden mit Passwort bleiben unberührt.',
+
+    'SHOP_MODULE_tabslturnstile_enable_honeypot' => 'Honeypot-Feld',
+    'HELP_SHOP_MODULE_tabslturnstile_enable_honeypot' => 'Ergänzt Registrierung, Checkout-Account und Gastkonto um ein für Kunden unsichtbares Feld. Ist es ausgefüllt, wird der Versuch abgewiesen. Passwortmanager können das Feld im Einzelfall füllen und Kunden damit abweisen; bei Beschwerden hier ausschalten.',
+
     'SHOP_MODULE_tabslturnstile_enable_newsletter' => 'Newsletter',
     'HELP_SHOP_MODULE_tabslturnstile_enable_newsletter' => 'Turnstile bei der Newsletter-Anmeldung aktivieren',
 

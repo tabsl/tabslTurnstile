@@ -114,6 +114,25 @@ class TurnstileService
         return $this->moduleSettings->getCollection('tabslturnstile_register_domains', self::MODULE_ID);
     }
 
+    public function getBlockedDomains(): array
+    {
+        // Setting is missing until oe:module:install ran after an update; getCollection() would throw and break every registration.
+        if (!$this->moduleSettings->exists('tabslturnstile_blocked_domains', self::MODULE_ID)) {
+            return [];
+        }
+
+        return $this->moduleSettings->getCollection('tabslturnstile_blocked_domains', self::MODULE_ID);
+    }
+
+    public function isHoneypotEnabled(): bool
+    {
+        if (!$this->moduleSettings->exists('tabslturnstile_enable_honeypot', self::MODULE_ID)) {
+            return false;
+        }
+
+        return $this->moduleSettings->getBoolean('tabslturnstile_enable_honeypot', self::MODULE_ID);
+    }
+
     public function isEnabledForNewsletter(): bool
     {
         return $this->moduleSettings->getBoolean('tabslturnstile_enable_newsletter', self::MODULE_ID);

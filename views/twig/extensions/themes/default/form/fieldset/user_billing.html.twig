@@ -3,6 +3,12 @@
 {% block form_user_billing_country %}
     {{ parent() }}
 
+    {% if oViewConf.getTurnstileService().isHoneypotEnabled() %}
+        <div aria-hidden="true" style="position:absolute;left:-9999px;">
+            <input type="text" name="homepage_url" value="" tabindex="-1" autocomplete="off">
+        </div>
+    {% endif %}
+
     {% if not tabslTurnstileRenderedOutsideBilling|default(false) %}
         {% include '@tabslTurnstile/turnstile_register.html.twig' %}
     {% endif %}
