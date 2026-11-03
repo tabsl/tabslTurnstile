@@ -19,7 +19,7 @@ $sMetadataVersion = '2.1';
 // tabsl module id
 $psModuleId = 'tabslTurnstile';
 $psModuleName = 'tabslTurnstile';
-$psModuleVersion = '2.0.0';
+$psModuleVersion = '2.1.0';
 
 // tabsl module description
 $psModuleDesc = 'Integration von Cloudflare Turnstile Captcha.';

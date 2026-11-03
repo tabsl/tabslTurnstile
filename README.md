@@ -16,7 +16,7 @@ Bot-Traffic auf Shop-Formularen führt zu:
 
 - ✅ Unsichtbare bzw. nicht-interaktive Bot-Erkennung von Cloudflare
 - ✅ Keine nervigen Bilderrätsel für echte Kunden
-- ✅ DSGVO-freundlich — kein Tracking, keine personenbezogenen Daten
+- ✅ DSGVO-freundlich — Details unter [Datenschutz](#datenschutz--dsgvo)
 - ✅ Kostenlos und unbegrenzt nutzbar (auch im kommerziellen Einsatz)
 - ✅ Per Klick aktivierbar pro Formular
 
@@ -30,6 +30,12 @@ Bot-Traffic auf Shop-Formularen führt zu:
 - **Passwort vergessen** — Schutz vor Missbrauch des E-Mail-Versands
 
 Jedes Formular kann einzeln aktiviert oder deaktiviert werden.
+
+### Schutz vor Fake-Registrierungen
+
+- **Adaptiver Modus** — Turnstile erscheint bei der Registrierung nur während einer Welle
+- **Domain-Sperre** — Adressen eingetragener E-Mail-Domains werden abgewiesen
+- **Honeypot** — Ein unsichtbares Feld erkennt Bots, die es ausfüllen
 
 ### Konfigurierbares Erscheinungsbild
 
@@ -50,6 +56,13 @@ vendor/bin/oe-console oe:module:activate tabslTurnstile
 ```
 
 Alternativ das Modul im OXID Admin unter **Erweiterungen → Module** aktivieren. Bei der Aktivierung wird die Tabelle für den adaptiven Zähler angelegt.
+
+Beim Update die Modulkonfiguration neu einlesen, damit neue Einstellungen im Admin erscheinen. Vorhandene Werte bleiben erhalten:
+
+```bash
+composer update tabsl/tabslturnstile
+vendor/bin/oe-console oe:module:install vendor/tabsl/tabslturnstile
+```
 
 Für OXID eShop 6 bleibt Version 1.x zuständig (`composer require tabsl/tabslturnstile:^1.1`, Branch `1.x`).
 
@@ -121,6 +134,11 @@ Cloudflare Turnstile wurde speziell als datenschutzfreundliche CAPTCHA-Alternati
 - Privacy-Statement: <https://www.cloudflare.com/privacypolicy/>
 
 Trotzdem sollte die Nutzung in der Datenschutzerklärung des Shops erwähnt werden (Auftragsverarbeitung durch Cloudflare).
+
+Das Modul verarbeitet außerdem selbst personenbezogene Daten:
+
+- Im adaptiven Modus speichert es E-Mail-Adressen im Klartext in der Tabelle `tabslturnstile_regattempt`. Einträge, die älter als das doppelte Zeitfenster sind, entfernt es beim nächsten Registrierungsversuch.
+- Abgewiesene Versuche und fehlgeschlagene Prüfungen schreiben die IP-Adresse ins Shop-Log, sofern das `sLogLevel` diese Einträge zulässt.
 
 ## Kompatibilität
 
