@@ -1,6 +1,11 @@
 [{$smarty.block.parent}]
 
 [{assign var="turnstileService" value=$oViewConf->getTurnstileService()}]
+[{if $turnstileService && $turnstileService->isHoneypotEnabled()}]
+    <div aria-hidden="true" style="position:absolute;left:-9999px;">
+        <input type="text" name="homepage_url" value="" tabindex="-1" autocomplete="off">
+    </div>
+[{/if}]
 [{if $turnstileService && $oViewConf->isTurnstileRegisterChallengeRequired() && $turnstileService->getSiteKey()}]
     <div class="form-group">
         <label class=" control-label col-lg-3">

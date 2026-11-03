@@ -83,12 +83,16 @@ Im OXID Admin unter **Erweiterungen → Module → tabslTurnstile → Einstellun
 | `tabslturnstile_register_window`           | Wellen-Zeitfenster in Minuten (Default: 5)                                                              |
 | `tabslturnstile_register_threshold`        | Anzahl verschiedener E-Mails im Fenster, ab der der Schutz anspringt (Default: 10)                      |
 | `tabslturnstile_register_domains`          | Optional: nur diese E-Mail-Domains zählen. Leer = alle Domains                                          |
+| `tabslturnstile_blocked_domains`           | Optional: Adressen dieser Domains abweisen, exakte Schreibweise ohne `@`. Leer = nichts wird gesperrt   |
+| `tabslturnstile_enable_honeypot`           | Optional: unsichtbares Feld an Registrierung, Checkout-Account und Gastkonto (Default: aus)             |
 | `tabslturnstile_enable_newsletter`         | Turnstile bei der Newsletter-Anmeldung aktivieren                                                       |
 | `tabslturnstile_enable_forgotpassword`     | Turnstile beim Passwort-vergessen-Formular aktivieren                                                   |
 
 Nach dem Speichern ist Turnstile in allen aktivierten Formularen aktiv.
 
 **Adaptiver Modus (Registrierung):** Im Alltag kein Widget. Zähler = verschiedene E-Mail-Adressen (nicht jedes Absenden). Dieselbe Adresse mehrfach zählt als 1. Domainliste leer: alle Domains. Domainliste gefüllt: nur diese Domains. Ab der Schwelle gilt Turnstile shop-weit für Registrierung, Checkout-Account und Gast — auch für Adressen außerhalb der Liste. Der Versuch, der die Schwelle erreicht, läuft noch ohne Widget durch. Nach einem ruhigen Fenster (mindestens so lang wie das Zeitfenster) geht der Schutz von allein wieder aus. Kontakt, Newsletter und Passwort-vergessen bleiben beim Dauer-Toggle.
+
+**Domain-Sperre und Honeypot:** Beide wirken ohne Turnstile-Widget und unabhängig vom adaptiven Modus. Die Sperre weist Registrierung, Checkout-Account, Gastkonto und Newsletter-Anmeldung ab, neue Domains wirken erst nach dem Eintragen. Das Abmelden vom Newsletter und Kunden mit Passwort bleiben unberührt. Abgewiesene Versuche zählen nicht für die Welle und landen als `warning` im Shop-Log, sind also nur bei passendem `sLogLevel` sichtbar. Der Honeypot sitzt im Block `form_user_billing_country`. Fehlt der Block im Theme, fehlt das Feld, und der Versuch läuft normal weiter; die Domain-Sperre gilt trotzdem. Bots, die Formulare ohne dieses Feld direkt absenden, erkennt der Honeypot nicht.
 
 ### Test-Schlüssel (für Entwicklung)
 

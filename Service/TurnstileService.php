@@ -109,6 +109,18 @@ class TurnstileService
         return (bool) Registry::getConfig()->getConfigParam('tabslturnstile_enable_newsletter');
     }
 
+    public function getBlockedDomains()
+    {
+        $domains = Registry::getConfig()->getConfigParam('tabslturnstile_blocked_domains');
+
+        return $domains !== null ? $domains : [];
+    }
+
+    public function isHoneypotEnabled(): bool
+    {
+        return (bool) Registry::getConfig()->getConfigParam('tabslturnstile_enable_honeypot');
+    }
+
     public function isEnabledForForgotPassword(): bool
     {
         return (bool) Registry::getConfig()->getConfigParam('tabslturnstile_enable_forgotpassword');

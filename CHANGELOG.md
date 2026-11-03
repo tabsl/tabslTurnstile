@@ -7,6 +7,10 @@ und dieses Projekt folgt [Semantic Versioning](https://semver.org/lang/de/).
 
 ## [Unreleased]
 
+### Added
+- Domain-Sperre für Registrierung, Checkout, Gastkonto und Newsletter-Anmeldung, Liste anfangs leer (F003)
+- Optionales Honeypot-Feld für Registrierung, Checkout und Gastkonto, ohne Widget, anfangs aus (F003)
+
 ## [1.1.1] - 2026-08-21
 
 ### Changed

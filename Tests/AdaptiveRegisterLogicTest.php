@@ -41,6 +41,14 @@ assertSame(false, AdaptiveRegisterService::isEmailCountable('a@googlemail.com', 
 assertSame(false, AdaptiveRegisterService::isEmailCountable('nodomain', []), 'invalid email never counts');
 assertSame(false, AdaptiveRegisterService::isEmailCountable('a@gmail.com', ['yahoo.com']), 'other listed domain only');
 
+assertSame(false, AdaptiveRegisterService::isDomainBlocked('a@maxxspace.com', []), 'empty block list blocks nothing');
+assertSame(true, AdaptiveRegisterService::isDomainBlocked('a@maxxspace.com', ['maxxspace.com']), 'listed domain is blocked');
+assertSame(true, AdaptiveRegisterService::isDomainBlocked(' A@MaxxSpace.COM ', ['@MAXXSPACE.com ']), 'block check ignores case and whitespace');
+assertSame(false, AdaptiveRegisterService::isDomainBlocked('a@gmail.com', ['maxxspace.com']), 'other domain is not blocked');
+assertSame(false, AdaptiveRegisterService::isDomainBlocked('a@sub.maxxspace.com', ['maxxspace.com']), 'subdomain is not blocked');
+assertSame(false, AdaptiveRegisterService::isDomainBlocked('nodomain', ['maxxspace.com']), 'invalid email is not blocked');
+assertSame(true, AdaptiveRegisterService::isDomainBlocked('a@b@maxxspace.com', ['maxxspace.com']), 'last domain part decides');
+
 if ($failed > 0) {
     echo "\n{$failed} failed\n";
     exit(1);
